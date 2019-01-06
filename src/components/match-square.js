@@ -1,5 +1,5 @@
 import React from 'react';
-import './MatchSquare.css'
+import './match-square.css'
 
 const MatchSquare = ({ isMatch }) => (
     <div

@@ -1,25 +1,18 @@
 import React from 'react';
-import MatchSquare from './MatchSquare.js';
-import './MatchTable.css';
+import MatchSquare from './match-square.js';
+import './match-table.css';
 
 const NumContestantsOfEachGender = 10;
 
-const isMatch = (row, col, matches) => {
-    return matches.reduce((accumulator, currentValue) => {
-        if (currentValue.man === row && currentValue.woman === col) {
-            return true;
-        }
-
-        return accumulator;
-    },
-    false);
+const isMatch = (row, col, pairs) => {
+    return pairs[row][col].isMatch;
 }
 
 const GenerateMatchTableRow = (row, store) => {
     let squares = [];
     for (let col = 0; col < NumContestantsOfEachGender; col++)
     {
-        squares.push(<MatchSquare isMatch={ isMatch(row, col, store.getState().matches) } />)
+        squares.push(<MatchSquare isMatch={ isMatch(row, col, store.getState().pairs) } />)
     }
 
     return squares;
