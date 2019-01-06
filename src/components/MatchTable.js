@@ -1,36 +1,46 @@
 import React from 'react';
-import MatchSquare from './MatchSquare.js'
+import MatchSquare from './MatchSquare.js';
 import './MatchTable.css';
 
-const MaleContestantCount = 10;
-const FemaleContestantCount = 10;
+const NumContestantsOfEachGender = 10;
 
-const GenerateMatchTableRow = () => {
+const isMatch = (row, col, matches) => {
+    return matches.reduce((accumulator, currentValue) => {
+        if (currentValue.man === row && currentValue.woman === col) {
+            return true;
+        }
+
+        return accumulator;
+    },
+    false);
+}
+
+const GenerateMatchTableRow = (row, store) => {
     let squares = [];
-    for (let j = 0; j < MaleContestantCount; j++)
+    for (let col = 0; col < NumContestantsOfEachGender; col++)
     {
-        squares.push(<MatchSquare />)
+        squares.push(<MatchSquare isMatch={ isMatch(row, col, store.getState().matches) } />)
     }
 
     return squares;
 }
 
-const GenerateMatchTable = () => {
+const GenerateMatchTable = (store) => {
     let rows = [];
-    for (let i = 0; i < FemaleContestantCount; i++)
+    for (let row = 0; row < NumContestantsOfEachGender; row++)
     {
         rows.push(
             <div className="match-table-row">
-                { GenerateMatchTableRow() }
+                { GenerateMatchTableRow(row, store) }
             </div>
         );
     }
     return rows;
 }
 
-const MatchTable = () => (
+const MatchTable = ({ store }) => (
     <div className="match-table">
-        { GenerateMatchTable() }
+        { GenerateMatchTable(store) }
     </div>
 )
 

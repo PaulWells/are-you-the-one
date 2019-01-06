@@ -1,8 +1,10 @@
 import React from 'react';
 import './MatchSquare.css'
 
-const MatchSquare = () => (
-    <div className="match-table-square" onClick={() => alert("MatchSquare clicked")}>
+const MatchSquare = ({ isMatch }) => (
+    <div
+        className={ "match-table-square " + (isMatch ? "match-table-square-matched" : "") }
+        onClick={() => alert("Is a match?: " + isMatch)}>
     </div>
 )
 

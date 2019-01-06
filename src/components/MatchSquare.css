@@ -7,3 +7,7 @@
     display: table-cell;
     text-align: center
 }
+
+.match-table-square-matched {
+    background-color: pink;
+}
