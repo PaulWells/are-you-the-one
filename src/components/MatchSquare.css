@@ -1,0 +1,9 @@
+.match-table-square {   
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-collapse: collapse;
+    width: 40px;
+    height: 40px;
+    display: table-cell;
+    text-align: center
+}
