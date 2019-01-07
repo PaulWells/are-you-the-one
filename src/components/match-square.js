@@ -3,7 +3,7 @@ import './match-square.css'
 import { DisplayValue } from '../constants';
 
 const getClassNameFromDisplayValue = (display) => {
-    switch(display)
+    switch (display)
     {
         case DisplayValue.PossibleMatch:
             return "matchtype-possible-match";
@@ -16,10 +16,13 @@ const getClassNameFromDisplayValue = (display) => {
     }
 }
 
-const MatchSquare = ({ display }) => (
+const MatchSquare = ({
+    display,
+    onClick
+}) => (
     <div
         className={ "match-table-square " + getClassNameFromDisplayValue(display) }
-        onClick={() => alert("className: " + getClassNameFromDisplayValue(display))}>
+        onClick={ onClick }>
     </div>
 )
 

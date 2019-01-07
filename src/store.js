@@ -1,10 +1,7 @@
 import { createStore } from 'redux';
 import { initializePairs } from './utilities/match-maker';
 import { Phase } from './constants';
-
-const rootReducer = (state = {}, action) => {
-    return state;
-}
+import rootReducer from './reducers/root-reducer';
 
 const createInitialStore = () => {
     let initialState = {
