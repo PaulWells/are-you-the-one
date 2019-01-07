@@ -2,8 +2,7 @@ import React from 'react';
 import MatchSquare from './match-square.js';
 import './match-table.css';
 import { getVisiblePairs } from '../utilities/pair-visibility-filter';
-
-const NumContestantsOfEachGender = 10;
+import { NumContestantsOfEachGender } from '../constants';
 
 const getDisplayValue = (row, col, pairs) => {
     return pairs[NumContestantsOfEachGender * row + col].display;

@@ -1,4 +1,4 @@
-const NumContestantsOfEachGender = 10;
+import { DisplayValue, NumContestantsOfEachGender } from "../constants";
 
 const shuffle = (list) => {
     // For each element in the list, swap it with a random element in the list.
@@ -39,7 +39,7 @@ const initializePairs = (men, women) => {
         {
             pairs[NumContestantsOfEachGender * i + j] = {
                 isMatch: false,
-                display: "POSSIBLE_MATCH"
+                display: DisplayValue.PossibleMatch
             }
         }
     }

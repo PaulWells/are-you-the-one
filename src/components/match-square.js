@@ -1,17 +1,19 @@
 import React from 'react';
 import './match-square.css'
+import { DisplayValue } from '../constants';
 
 const getClassNameFromDisplayValue = (display) => {
-
-    if (display === "POSSIBLE_MATCH") {
-        return "matchtype-possible-match";
-    } else if (display === "DISABLED") {
-        return "matchtype-disabled";
-    } else if (display === "MATCHED") {
-        return "matchtype-matched";
+    switch(display)
+    {
+        case DisplayValue.PossibleMatch:
+            return "matchtype-possible-match";
+        case DisplayValue.Disabled:
+            return "matchtype-disabled";
+        case DisplayValue.Matched:
+            return "matchtype-matched";
+        default:
+            return "";
     }
-
-    return "";
 }
 
 const MatchSquare = ({ display }) => (
