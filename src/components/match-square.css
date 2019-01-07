@@ -8,6 +8,14 @@
     text-align: center
 }
 
-.match-table-square-matched {
+.matchtype-matched {
     background-color: pink;
+}
+
+.matchtype-disabled {
+    background-color: grey;
+}
+
+.matchtype-possible-match {
+    background-color: white;
 }

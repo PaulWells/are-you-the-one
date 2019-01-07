@@ -24,7 +24,7 @@ const assignMatches = (pairs) => {
 
     for (let i = 0; i < NumContestantsOfEachGender; i++)
     {
-        pairs[men[i]][women[i]].isMatch = true;
+        pairs[NumContestantsOfEachGender * men[i] + women[i]].isMatch = true;
     }
 
     return pairs;
@@ -33,12 +33,11 @@ const assignMatches = (pairs) => {
 const initializePairs = (men, women) => {
 
     // Create array of all possible pairings
-    let pairs = new Array(NumContestantsOfEachGender);
-    for (let i = 0; i < pairs.length; i++) {
-        pairs[i] = new Array(NumContestantsOfEachGender);
-        for (let j = 0; j < pairs[i].length; j++)
+    let pairs = new Array(Math.pow(NumContestantsOfEachGender, 2));
+    for (let i = 0; i < NumContestantsOfEachGender; i++) {
+        for (let j = 0; j < NumContestantsOfEachGender; j++)
         {
-            pairs[i][j] = {
+            pairs[NumContestantsOfEachGender * i + j] = {
                 isMatch: false,
                 display: "POSSIBLE_MATCH"
             }

@@ -1,30 +1,32 @@
 import React from 'react';
 import MatchSquare from './match-square.js';
 import './match-table.css';
+import { getVisiblePairs } from '../utilities/pair-visibility-filter';
 
 const NumContestantsOfEachGender = 10;
 
-const isMatch = (row, col, pairs) => {
-    return pairs[row][col].isMatch;
+const getDisplayValue = (row, col, pairs) => {
+    return pairs[NumContestantsOfEachGender * row + col].display;
 }
 
-const GenerateMatchTableRow = (row, store) => {
+const GenerateMatchTableRow = (row, pairs) => {
     let squares = [];
     for (let col = 0; col < NumContestantsOfEachGender; col++)
     {
-        squares.push(<MatchSquare isMatch={ isMatch(row, col, store.getState().pairs) } />)
+        squares.push(<MatchSquare display={ getDisplayValue(row, col, pairs) } />)
     }
 
     return squares;
 }
 
 const GenerateMatchTable = (store) => {
+    let visiblePairs = getVisiblePairs(store);
     let rows = [];
     for (let row = 0; row < NumContestantsOfEachGender; row++)
     {
         rows.push(
             <div className="match-table-row">
-                { GenerateMatchTableRow(row, store) }
+                { GenerateMatchTableRow(row, visiblePairs) }
             </div>
         );
     }
