@@ -1,52 +1,13 @@
 import { Actions } from '../action-creators';
-import { DisplayValue, Phase } from '../constants';
+import truthBoothReducer from '../reducers/truth-booth-reducer';
 
 const rootReducer = (state = {}, action) => {
-    console.log(action);
     switch (action.type) {
         case Actions.ActivateTruthBooth:
             return truthBoothReducer(state, action);
         default:
             return state;
     }
-}
-
-const updatePair = (pairs, index, pair, update) => {
-    return [
-        ...pairs.slice(0, index),
-        Object.assign({}, pair, update),
-        ...pairs.slice(index + 1)
-    ]
-}
-
-const truthBoothReducer = (state = {}, action) => {
-
-    let updatedPairs = [];
-    let pairs = state.pairs;
-    let selectedCoupleIndex = action.pairId;
-    let selectedCouple = pairs[selectedCoupleIndex];
-
-    if (selectedCouple.isMatch) {
-        // change state to match and all squares in row and column to not a match
-
-        // temporary dummy action
-        updatedPairs = pairs;
-    } else {
-        updatedPairs = updatePair(pairs, selectedCoupleIndex, selectedCouple, { display: DisplayValue.NotAMatch });
-    }
-
-    state = Object.assign(
-        {},
-        state,
-        { 
-            phase: Phase.MatchUpCeremony,
-            pairs: updatedPairs
-        }
-    );
-
-    console.log(state);
-
-    return state;
 }
 
 export default rootReducer;

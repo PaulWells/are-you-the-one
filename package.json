@@ -27,6 +27,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "deep-freeze": "0.0.1",
     "gh-pages": "^2.0.1"
   },
   "homepage": "https://PaulWells.github.io/are-you-the-one/"
