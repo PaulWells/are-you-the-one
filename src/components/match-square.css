@@ -19,3 +19,7 @@
 .matchtype-possible-match {
     background-color: white;
 }
+
+.matchtype-not-a-match {
+    background-color: black;
+}

@@ -25,12 +25,15 @@ const getVisiblePairsForTruthBooth = (pairs) => {
     // Set all non-matched pairs to be disabled while the user chooses who to put in
     // the truth booth.
     visiblePairs.forEach((pair) => {
-        if (pair.display !== DisplayValue.Matched) {
+        if (pair.display !== DisplayValue.Matched &&
+            pair.display !== DisplayValue.NotAMatch) {
             pair.display = DisplayValue.Disabled;
         }
     });
 
     // randomly select two couples to be eligible for the truth booth
+
+    // BUG: The same person cannot be in both couples eligible for the truth booth.
     let [index1, index2] = generateTwoUniqueRandomIntegers(visiblePairs.length);
     visiblePairs[index1].display = DisplayValue.PossibleMatch;
     visiblePairs[index2].display = DisplayValue.PossibleMatch;

@@ -3,18 +3,18 @@ import MatchSquare from './match-square.js';
 import './match-table.css';
 import { getVisiblePairs } from '../utilities/pair-visibility-filter';
 import { NumContestantsOfEachGender, DisplayValue } from '../constants';
-import ActionCreators from '../action-creators'; 
+import { ActionCreators } from '../action-creators'; 
 
 const getPairIndex = (row, col) => {
     return NumContestantsOfEachGender * row + col;
 }
 
-const handleMatchSquareClick = (row, col, pair, dispatch) => {
+const handleMatchSquareClick = (display, pairId, dispatch) => {
 
     // Only one action for now;
-    if (pair.display === DisplayValue.PossibleMatch)
+    if (display === DisplayValue.PossibleMatch)
     {
-        dispatch(ActionCreators.activateTruthBooth(row, col, pair.isMatch));
+        dispatch(ActionCreators.activateTruthBooth(pairId));
     }
 }
 
@@ -28,7 +28,7 @@ const GenerateMatchTableRow = (row, pairs, dispatch) => {
             <MatchSquare 
                 key={ index }
                 display={ pair.display } 
-                onClick={ () => handleMatchSquareClick(row, col, pair, dispatch) }
+                onClick={ () => handleMatchSquareClick(pair.display, index, dispatch) }
             />
         )
     }

@@ -1,5 +1,6 @@
 const Phase = {
     "TruthBooth": 0,
+    "MatchUpCeremony": 1
 }
 
 const DisplayValue = {
@@ -9,6 +10,6 @@ const DisplayValue = {
     "NotAMatch": 3
 }
 
-const NumContestantsOfEachGender = 10;
+const NumContestantsOfEachGender = 11;
 
 export { DisplayValue, NumContestantsOfEachGender, Phase }

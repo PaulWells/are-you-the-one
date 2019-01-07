@@ -11,6 +11,8 @@ const getClassNameFromDisplayValue = (display) => {
             return "matchtype-disabled";
         case DisplayValue.Matched:
             return "matchtype-matched";
+        case DisplayValue.NotAMatch:
+            return "matchtype-not-a-match"
         default:
             return "";
     }

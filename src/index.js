@@ -6,7 +6,14 @@ import { createInitialStore } from './store';
 
 let store = createInitialStore();
 
-ReactDOM.render(
-    <Root store={ store }/>,
-    document.getElementById('root')
-);
+let render = () => {
+    ReactDOM.render(
+        <Root store={ store }/>,
+        document.getElementById('root')
+    );
+}
+
+store.subscribe(render);
+
+render();
+
