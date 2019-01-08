@@ -1,6 +1,6 @@
 import deepFreeze from 'deep-freeze';
 import truthBoothReducer from './truth-booth-reducer';
-import { Actions, ActionCreators } from '../action-creators';
+import { ActionCreators } from '../action-creators';
 import { Phase, DisplayValue } from '../constants';
 
 const createMockInitialState = () => {

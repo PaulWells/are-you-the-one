@@ -41,8 +41,6 @@ const truthBoothReducer = (state, action) => {
         }
     );
 
-    console.log(state);
-
     return state;
 }
 
