@@ -10,6 +10,6 @@ const DisplayValue = {
     "NotAMatch": 3
 }
 
-const NumContestantsOfEachGender = 11;
+const NumContestantsOfEachGender = 10;
 
 export { DisplayValue, NumContestantsOfEachGender, Phase }
