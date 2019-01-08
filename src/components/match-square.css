@@ -1,6 +1,5 @@
 .match-table-square {   
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border: 2px solid black;
     border-collapse: collapse;
     width: 40px;
     height: 40px;
@@ -21,5 +20,5 @@
 }
 
 .matchtype-not-a-match {
-    background-color: black;
+    background-color: rgb(53, 53, 53);
 }
