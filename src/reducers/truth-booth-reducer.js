@@ -14,7 +14,7 @@ const truthBoothReducer = (state, action) => {
         return {};
     }
 
-    if (action.type != Actions.ActivateTruthBooth) {
+    if (action.type !== Actions.ActivateTruthBooth) {
         return state;
     }
 
