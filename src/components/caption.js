@@ -4,7 +4,9 @@ import { Phase } from '../constants';
 const getPrintPhaseFromStatePhase = (phase) => {
     switch (phase) {
         case Phase.TruthBooth:
-           return "Truth Booth";
+            return "Truth Booth";
+        case Phase.MatchUpCeremony:
+            return "Match Up Ceremony";
         default:
             return "";
     }
