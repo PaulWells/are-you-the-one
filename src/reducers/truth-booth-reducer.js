@@ -1,10 +1,10 @@
 import { DisplayValue, Phase } from '../constants';
 import { Actions } from '../action-creators';
 
-const updatePair = (pairs, index, pair, update) => {
+const updatePair = (pairs, index, update) => {
     return [
         ...pairs.slice(0, index),
-        Object.assign({}, pair, update),
+        Object.assign({}, pairs[index], update),
         ...pairs.slice(index + 1)
     ]
 }
@@ -25,11 +25,9 @@ const truthBoothReducer = (state, action) => {
 
     if (selectedCouple.isMatch) {
         // change state to match and all squares in row and column to not a match
-
-        // temporary dummy action
-        updatedPairs = pairs;
+        updatedPairs = updatePair(pairs, selectedCoupleIndex, { display: DisplayValue.Matched });
     } else {
-        updatedPairs = updatePair(pairs, selectedCoupleIndex, selectedCouple, { display: DisplayValue.NotAMatch });
+        updatedPairs = updatePair(pairs, selectedCoupleIndex, { display: DisplayValue.NotAMatch });
     }
 
     state = Object.assign(
