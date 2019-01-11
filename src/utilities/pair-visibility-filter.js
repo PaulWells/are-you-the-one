@@ -48,9 +48,9 @@ const getVisiblePairsForTruthBooth = (pairs) => {
     return visiblePairs;
 }
 
-const getVisiblePairs = (store) => {
-    let visiblePairs = store.getState().pairs;
-    let phase = store.getState().phase;
+const getVisiblePairs = (state) => {
+    let visiblePairs = state.pairs;
+    let phase = state.phase;
     if (phase === Phase.TruthBooth) {
         visiblePairs = getVisiblePairsForTruthBooth(visiblePairs);
     }

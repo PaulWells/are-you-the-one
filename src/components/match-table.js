@@ -2,33 +2,49 @@ import React from 'react';
 import MatchSquare from './match-square.js';
 import './match-table.css';
 import { getVisiblePairs } from '../utilities/pair-visibility-filter';
-import { NumContestantsOfEachGender, DisplayValue } from '../constants';
+import { NumContestantsOfEachGender, DisplayValue, Phase } from '../constants';
 import { ActionCreators } from '../action-creators'; 
 
 const getPairIndex = (row, col) => {
     return NumContestantsOfEachGender * row + col;
 }
 
-const handleMatchSquareClick = (display, pairId, dispatch) => {
+const handleMatchSquareClick = (phase, display, pairId, dispatch) => {
 
     // Only one action for now;
-    if (display === DisplayValue.PossibleMatch)
-    {
-        dispatch(ActionCreators.activateTruthBooth(pairId));
+    switch (phase) {
+        case Phase.TruthBooth:
+            if (display === DisplayValue.PossibleMatch) {
+                dispatch(ActionCreators.activateTruthBooth(pairId));
+            }
+            break;
+        case Phase.MatchUpCeremony:
+            if (display === DisplayValue.PossibleMatch) {
+                dispatch(ActionCreators.toggleMatchUpCeremonySelection(pairId));
+            }
+            break;
+        default:
+            break;
     }
+    
 }
 
-const GenerateMatchTableRow = (row, pairs, dispatch) => {
+const GenerateMatchTableRow = (rowIndex, store) => {
+    
+    let state = store.getState();
+    let pairs = getVisiblePairs(state);
+    let phase = state.phase;
+
     let squares = [];
     for (let col = 0; col < NumContestantsOfEachGender; col++)
     {
-        let index = getPairIndex(row, col);
+        let index = getPairIndex(rowIndex, col);
         let pair = pairs[index];
         squares.push(
             <MatchSquare 
                 key={ index }
                 display={ pair.display } 
-                onClick={ () => handleMatchSquareClick(pair.display, index, dispatch) }
+                onClick={ () => handleMatchSquareClick(phase, pair.display, index, store.dispatch) }
             />
         )
     }
@@ -37,13 +53,12 @@ const GenerateMatchTableRow = (row, pairs, dispatch) => {
 }
 
 const GenerateMatchTable = (store) => {
-    let visiblePairs = getVisiblePairs(store);
     let rows = [];
-    for (let row = 0; row < NumContestantsOfEachGender; row++)
+    for (let rowIndex = 0; rowIndex < NumContestantsOfEachGender; rowIndex++)
     {
         rows.push(
-            <div className="match-table-row" key={ row }>
-                { GenerateMatchTableRow(row, visiblePairs, store.dispatch) }
+            <div className="match-table-row" key={ rowIndex }>
+                { GenerateMatchTableRow(rowIndex, store) }
             </div>
         );
     }
