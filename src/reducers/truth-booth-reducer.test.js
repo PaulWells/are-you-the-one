@@ -28,14 +28,25 @@ const createNonTruthBoothAction = () => {
 }
 
 test('Passing no state or action returns empty state', () => {
+    let initialState = createMockInitialState();
+    let action = ActionCreators.activateTruthBooth(0);
+
+    deepFreeze(action);
+    deepFreeze(initialState);
+
     expect(truthBoothReducer(undefined, undefined)).toEqual({});
-    expect(truthBoothReducer(undefined, ActionCreators.activateTruthBooth(0))).toEqual({});
-    expect(truthBoothReducer(createMockInitialState(), undefined)).toEqual({});
+    expect(truthBoothReducer(undefined, action)).toEqual({});
+    expect(truthBoothReducer(initialState, undefined)).toEqual({});
 });
 
 test('Passing wrong action type returns state unchanged', () => {
     let state = createMockInitialState();
-    expect(truthBoothReducer(state, createNonTruthBoothAction)).toEqual(state);
+    let action = createNonTruthBoothAction();
+
+    deepFreeze(state);
+    deepFreeze(action);
+
+    expect(truthBoothReducer(state, action)).toEqual(state);
 });
 
 test('Activating Truth Booth on incorrect match marks couple as not a match and changes phase to Match Up Ceremony', () => {
@@ -70,5 +81,10 @@ test('Activating Truth Booth on incorrect match marks couple as not a match and 
         week: 1
     }
 
-    expect(truthBoothReducer(state, ActionCreators.activateTruthBooth(0))).toEqual(expectedState);
+    let action = ActionCreators.activateTruthBooth(0);
+
+    deepFreeze(state);
+    deepFreeze(action);
+
+    expect(truthBoothReducer(state, action)).toEqual(expectedState);
 });
