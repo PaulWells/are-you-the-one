@@ -29,11 +29,7 @@ const handleMatchSquareClick = (phase, display, pairId, dispatch) => {
     
 }
 
-const GenerateMatchTableRow = (rowIndex, store) => {
-    
-    let state = store.getState();
-    let pairs = getVisiblePairs(state);
-    let phase = state.phase;
+const GenerateMatchTableRow = (rowIndex, pairs, phase, dispatch) => {
 
     let squares = [];
     for (let col = 0; col < NumContestantsOfEachGender; col++)
@@ -44,7 +40,7 @@ const GenerateMatchTableRow = (rowIndex, store) => {
             <MatchSquare 
                 key={ index }
                 display={ pair.display } 
-                onClick={ () => handleMatchSquareClick(phase, pair.display, index, store.dispatch) }
+                onClick={ () => handleMatchSquareClick(phase, pair.display, index, dispatch) }
             />
         )
     }
@@ -54,11 +50,13 @@ const GenerateMatchTableRow = (rowIndex, store) => {
 
 const GenerateMatchTable = (store) => {
     let rows = [];
+    let state = store.getState();
+    let visiblePairs = getVisiblePairs(state);
     for (let rowIndex = 0; rowIndex < NumContestantsOfEachGender; rowIndex++)
     {
         rows.push(
             <div className="match-table-row" key={ rowIndex }>
-                { GenerateMatchTableRow(rowIndex, store) }
+                { GenerateMatchTableRow(rowIndex, visiblePairs, state.phase, store.dispatch) }
             </div>
         );
     }
