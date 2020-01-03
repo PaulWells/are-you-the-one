@@ -10,31 +10,25 @@ const inSameRowOrColumn = (index1, index2) => {
     Grid.getColumn(index1) === Grid.getColumn(index2);
 }
 
+const markCoupleWithExclusiveDisplayValue = (pairs, selectedCoupleIndex, selectedCoupledDisplayValue, excludedCouplesDisplayValue) => {
+    return pairs.map((pair, index) => {
+        if (index === selectedCoupleIndex) {
+            return getUpdatedPair(pair, { display: selectedCoupledDisplayValue });
+        } else if (inSameRowOrColumn(index, selectedCoupleIndex) && pair.display === DisplayValue.PossibleMatch) {
+            return getUpdatedPair(pair, { display: excludedCouplesDisplayValue });
+        } else {
+            return pair;
+        }
+    });
+}
+
 const State = {
     markCoupleAsMatched: (pairs, selectedCoupleIndex) => {
-        let updatedPairs = pairs.map((pair, index) => {
-            if (index === selectedCoupleIndex) {
-                return getUpdatedPair(pair, { display: DisplayValue.Matched });
-            } else if (inSameRowOrColumn(index, selectedCoupleIndex)) {
-                return getUpdatedPair(pair, { display: DisplayValue.NotAMatch });
-            } else {
-                return pair;
-            }
-        });
-        return updatedPairs;
+        return markCoupleWithExclusiveDisplayValue(pairs, selectedCoupleIndex, DisplayValue.Matched, DisplayValue.NotAMatch);
     },
 
     markCoupleAsSelectedForMatchUpCeremony: (pairs, selectedCoupleIndex) => {
-        let updatedPairs = pairs.map((pair, index) => {
-            if (index === selectedCoupleIndex) {
-                return getUpdatedPair(pair, { display: DisplayValue.SelectedForMatchUpCeremony });
-            } else if (inSameRowOrColumn(index, selectedCoupleIndex) && pair.display === DisplayValue.PossibleMatch) {
-                return getUpdatedPair(pair, { display: DisplayValue.Disabled });
-            } else {
-                return pair;
-            }
-        });
-        return updatedPairs;
+        return markCoupleWithExclusiveDisplayValue(pairs, selectedCoupleIndex, DisplayValue.SelectedForMatchUpCeremony, DisplayValue.Disabled);
     },
 
     updatePair: (pairs, index, update) => {
