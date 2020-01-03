@@ -24,12 +24,36 @@ const State = {
         return updatedPairs;
     },
 
+    markCoupleAsSelectedForMatchUpCeremony: (pairs, selectedCoupleIndex) => {
+        let updatedPairs = pairs.map((pair, index) => {
+            if (index === selectedCoupleIndex) {
+                return getUpdatedPair(pair, { display: DisplayValue.SelectedForMatchUpCeremony });
+            } else if (inSameRowOrColumn(index, selectedCoupleIndex) && pair.display === DisplayValue.PossibleMatch) {
+                return getUpdatedPair(pair, { display: DisplayValue.Disabled });
+            } else {
+                return pair;
+            }
+        });
+        return updatedPairs;
+    },
+
     updatePair: (pairs, index, update) => {
         return [
             ...pairs.slice(0, index),
             getUpdatedPair(pairs[index], update),
             ...pairs.slice(index + 1)
         ]
+    },
+
+    updateState: (state, index, update) => {
+        let updatedPairs = State.updatePair(state.pairs, index, update);
+        return Object.assign(
+            {},
+            state,
+            { 
+                pairs: updatedPairs
+            }
+        );
     }
 }
 

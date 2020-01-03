@@ -1,5 +1,5 @@
 import State from '../utilities/state';
-import { DisplayValue } from '../constants';
+import { DisplayValue, Phase } from '../constants';
 import { Actions } from '../action-creators';
 
 const toggleMatchUpCeremonySelection = (state, action) => {
@@ -16,14 +16,20 @@ const toggleMatchUpCeremonySelection = (state, action) => {
         throw new Error("Invalid DisplayValue: " + displayValue + " at index: " + pairId);
     }
 
-    let updatedPairs = State.updatePair(pairs, pairId, { display: newDisplayValue });
-    return Object.assign(
+    let updatedPairs = State.markCoupleAsSelectedForMatchUpCeremony(pairs, pairId);
+
+    state = Object.assign(
         {},
         state,
         { 
+            phase: Phase.MatchUpCeremony,
             pairs: updatedPairs
         }
     );
+
+    return state;
+
+    return State.updateState(state, pairId, { display: newDisplayValue });
 }
 
 const matchUpCeremonyReducer = (state, action) => {
