@@ -12,7 +12,9 @@ const getClassNameFromDisplayValue = (display) => {
         case DisplayValue.Matched:
             return "matchtype-matched";
         case DisplayValue.NotAMatch:
-            return "matchtype-not-a-match"
+            return "matchtype-not-a-match";
+        case DisplayValue.SelectedForMatchUpCeremony:
+            return "matchtype-selected-for-match-up-ceremony";
         default:
             return "";
     }

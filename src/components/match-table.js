@@ -19,7 +19,8 @@ const handleMatchSquareClick = (phase, display, pairId, dispatch) => {
             }
             break;
         case Phase.MatchUpCeremony:
-            if (display === DisplayValue.PossibleMatch) {
+            if (display === DisplayValue.PossibleMatch ||
+                display === DisplayValue.SelectedForMatchUpCeremony) {
                 dispatch(ActionCreators.toggleMatchUpCeremonySelection(pairId));
             }
             break;

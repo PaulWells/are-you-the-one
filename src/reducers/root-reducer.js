@@ -1,6 +1,6 @@
 import { Actions } from '../action-creators';
-import truthBoothReducer from '../reducers/truth-booth-reducer';
-import matchupCeremonyReducer from '../reducers/match-up-ceremony-reducer';
+import truthBoothReducer from './truth-booth-reducer';
+import matchUpCeremonyReducer from './match-up-ceremony-reducer';
 
 const rootReducer = (state = {}, action) => {
     switch (action.type) {

@@ -40,8 +40,6 @@ const getVisiblePairsForTruthBooth = (pairs) => {
     });
 
     // randomly select two couples to be eligible for the truth booth
-
-    // BUG: The same person cannot be in both couples eligible for the truth booth.
     let [index1, index2] = selectTwoRandomPairs(visiblePairs.length);
     visiblePairs[index1].display = DisplayValue.PossibleMatch;
     visiblePairs[index2].display = DisplayValue.PossibleMatch;

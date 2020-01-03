@@ -12,7 +12,7 @@
 }
 
 .matchtype-disabled {
-    background-color: grey;
+    background-color: lightgrey;
 }
 
 .matchtype-possible-match {
@@ -20,5 +20,9 @@
 }
 
 .matchtype-not-a-match {
-    background-color: rgb(53, 53, 53);
+    background-color: grey;
+}
+
+.matchtype-selected-for-match-up-ceremony {
+    background-color: lightblue;
 }
