@@ -1,6 +1,7 @@
 import { DisplayValue, Phase } from '../constants';
 import { Actions } from '../action-creators';
 import State from '../utilities/state';
+const clonedeep = require('lodash.clonedeep');
 
 const truthBoothReducer = (state, action) => {
     if (!state || !action) {
@@ -11,27 +12,18 @@ const truthBoothReducer = (state, action) => {
         return state;
     }
 
-    let updatedPairs = [];
-    let pairs = state.pairs;
+    let newState = clonedeep(state);
     let selectedCoupleIndex = action.pairId;
-    let selectedCouple = pairs[selectedCoupleIndex];
+    let selectedCouple = state.pairs[selectedCoupleIndex];
 
     if (selectedCouple.isMatch) {
-        updatedPairs = State.markCoupleAsMatched(pairs, selectedCoupleIndex);
+        newState.pairs = State.markCoupleAsMatched(state.pairs, selectedCoupleIndex);
     } else {
-        updatedPairs = State.updatePair(pairs, selectedCoupleIndex, { display: DisplayValue.NotAMatch });
+        newState.pairs[selectedCoupleIndex].display = DisplayValue.NotAMatch;
     }
 
-    state = Object.assign(
-        {},
-        state,
-        { 
-            phase: Phase.MatchUpCeremony,
-            pairs: updatedPairs
-        }
-    );
-
-    return state;
+    newState.phase = Phase.MatchUpCeremony;
+    return newState;
 }
 
 export default truthBoothReducer;

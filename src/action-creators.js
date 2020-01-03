@@ -1,6 +1,6 @@
 const Actions = {
   'ActivateTruthBooth': 0,
-  'ToggleMatchUpCeremonySelection': 1
+  'MatchUpCeremonySelection': 1
 }
 
 const ActionCreators = {
@@ -8,8 +8,8 @@ const ActionCreators = {
       type: Actions.ActivateTruthBooth,
       pairId
     }),
-    toggleMatchUpCeremonySelection: (pairId) => ({
-      type:Actions.ToggleMatchUpCeremonySelection,
+    makeMatchUpCeremonySelection: (pairId) => ({
+      type:Actions.MatchUpCeremonySelection,
       pairId
     })
 }

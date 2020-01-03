@@ -30,7 +30,7 @@ const createNonMatchUpCeremonyAction = () => {
 
 test('Passing no state or action returns empty state', () => {
     let initialState = createMockInitialState();
-    let action = ActionCreators.toggleMatchUpCeremonySelection(0);
+    let action = ActionCreators.makeMatchUpCeremonySelection(0);
 
     deepFreeze(action);
     deepFreeze(initialState);
@@ -58,7 +58,7 @@ test('Toggling Match Up Ceremony selection changes display from PossibleMatch to
     let selectedPairId = 0;
     expectedState.pairs[selectedPairId].display = DisplayValue.SelectedForMatchUpCeremony;
 
-    let action = ActionCreators.toggleMatchUpCeremonySelection(selectedPairId);
+    let action = ActionCreators.makeMatchUpCeremonySelection(selectedPairId);
 
     deepFreeze(state);
     deepFreeze(action);

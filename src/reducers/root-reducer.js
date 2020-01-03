@@ -6,7 +6,7 @@ const rootReducer = (state = {}, action) => {
     switch (action.type) {
         case Actions.ActivateTruthBooth:
             return truthBoothReducer(state, action);
-        case Actions.ToggleMatchUpCeremonySelection:
+        case Actions.MatchUpCeremonySelection:
             return matchUpCeremonyReducer(state, action);
         default:
             return state;

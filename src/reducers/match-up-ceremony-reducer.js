@@ -1,35 +1,23 @@
 import State from '../utilities/state';
 import { DisplayValue, Phase } from '../constants';
 import { Actions } from '../action-creators';
+const clonedeep = require('lodash.clonedeep');
 
-const toggleMatchUpCeremonySelection = (state, action) => {
+const makeMatchUpCeremonySelection = (state, action) => {
     let pairId = action.pairId;
     let pairs = state.pairs;
     let displayValue = pairs[pairId].display;
-    let newDisplayValue;
 
-    if (displayValue === DisplayValue.PossibleMatch) {
-        newDisplayValue = DisplayValue.SelectedForMatchUpCeremony;
-    } else if (displayValue === DisplayValue.SelectedForMatchUpCeremony) {
-        newDisplayValue = DisplayValue.PossibleMatch;
-    } else {
-        throw new Error("Invalid DisplayValue: " + displayValue + " at index: " + pairId);
+    if (displayValue !== DisplayValue.PossibleMatch)
+    {
+        return state;
     }
 
-    let updatedPairs = State.markCoupleAsSelectedForMatchUpCeremony(pairs, pairId);
+    let newState = clonedeep(state);
+    newState.pairs = State.markCoupleAsSelectedForMatchUpCeremony(pairs, pairId);
+    newState.phase = Phase.MatchUpCeremony;
 
-    state = Object.assign(
-        {},
-        state,
-        { 
-            phase: Phase.MatchUpCeremony,
-            pairs: updatedPairs
-        }
-    );
-
-    return state;
-
-    return State.updateState(state, pairId, { display: newDisplayValue });
+    return newState;
 }
 
 const matchUpCeremonyReducer = (state, action) => {
@@ -37,12 +25,12 @@ const matchUpCeremonyReducer = (state, action) => {
         return {};
     }
 
-    switch (action.type) {
-        case Actions.ToggleMatchUpCeremonySelection:
-            return toggleMatchUpCeremonySelection(state, action);
-        default:
-            return state;
+    if (action.type !== Actions.MatchUpCeremonySelection)
+    {
+        return state;
     }
+
+    return makeMatchUpCeremonySelection(state, action);
 }
 
 export default matchUpCeremonyReducer;

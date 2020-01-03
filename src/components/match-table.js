@@ -11,7 +11,6 @@ const getPairIndex = (row, col) => {
 
 const handleMatchSquareClick = (phase, display, pairId, dispatch) => {
 
-    // Only one action for now;
     switch (phase) {
         case Phase.TruthBooth:
             if (display === DisplayValue.PossibleMatch) {
@@ -21,7 +20,7 @@ const handleMatchSquareClick = (phase, display, pairId, dispatch) => {
         case Phase.MatchUpCeremony:
             if (display === DisplayValue.PossibleMatch ||
                 display === DisplayValue.SelectedForMatchUpCeremony) {
-                dispatch(ActionCreators.toggleMatchUpCeremonySelection(pairId));
+                dispatch(ActionCreators.makeMatchUpCeremonySelection(pairId));
             }
             break;
         default:

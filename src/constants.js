@@ -3,6 +3,7 @@ const Phase = {
     "MatchUpCeremony": 1
 }
 
+// TODO: logically seperate DisplayValue from MatchState
 const DisplayValue = {
     "PossibleMatch": 0,
     "Matched": 1,
