@@ -3,6 +3,19 @@ import { DisplayValue, Phase } from '../constants';
 import { Actions } from '../action-creators';
 const clonedeep = require('lodash.clonedeep');
 
+const endMatchupCeremony = (state) => {
+    if (State.isMatchupCeremonyComplete(state)) {
+        let numCorrectMatches = State.numberOfCorrectMatchUpCeremonyMatches(state);
+        if (numCorrectMatches === 0) {
+            state = State.markAllMatchupCeremonyCouplesAsNotAMatch(state);
+        }
+
+        state = State.resetDisabledPairs(state);
+        state.phase = Phase.TruthBooth;
+    }
+    return state;
+}
+
 const makeMatchUpCeremonySelection = (state, action) => {
     let pairId = action.pairId;
     let pairs = state.pairs;
@@ -15,7 +28,6 @@ const makeMatchUpCeremonySelection = (state, action) => {
 
     let newState = clonedeep(state);
     newState.pairs = State.markCoupleAsSelectedForMatchUpCeremony(pairs, pairId);
-    newState.phase = Phase.MatchUpCeremony;
 
     return newState;
 }
@@ -30,7 +42,10 @@ const matchUpCeremonyReducer = (state, action) => {
         return state;
     }
 
-    return makeMatchUpCeremonySelection(state, action);
+    let newState = clonedeep(state);
+    newState = makeMatchUpCeremonySelection(newState, action);
+    newState = endMatchupCeremony(newState);
+    return newState;
 }
 
 export default matchUpCeremonyReducer;
