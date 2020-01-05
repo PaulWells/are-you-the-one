@@ -28,10 +28,10 @@ const State = {
 
     isMatchupCeremonyComplete: (state) => {
         return state.pairs.reduce((agg, pair) => {
-            return (pair.display === DisplayValue.SelectedForMatchUpCeremony 
-                || pair.display === DisplayValue.Matched) ?
-                    agg + 1 : agg;
-        }, 0) === NumContestantsOfEachGender;
+            // If there is at least one available match on the board then
+            // the user can still select another couple for the matchup ceremony.
+            return agg && pair.display !== DisplayValue.PossibleMatch;
+        }, true);
     },
 
     markAllMatchupCeremonyCouplesAsNotAMatch: (state) => {
