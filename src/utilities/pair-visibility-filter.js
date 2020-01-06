@@ -10,25 +10,32 @@ const pairsShareARowOrColumn = (index1, index2) => {
     Grid.getRow(index1) === Grid.getRow(index2);
 }
 
-const selectTwoRandomPairs = (max) => {
-    let index1 = generateRandomInteger(max);
-    let index2 = generateRandomInteger(max);
+const sampleTwoElements = (arr) => {
+    let max = arr.length;
+    let index1 = arr[generateRandomInteger(max)];
+    let index2 = arr[generateRandomInteger(max)];
     while (pairsShareARowOrColumn(index1, index2)) {
-        index2 = generateRandomInteger(max);
+        index2 = arr[generateRandomInteger(max)];
     }
     return [index1, index2];
 }
 
 const getVisiblePairsForTruthBooth = (pairs) => {
     let visiblePairs = pairs.map((pair) => Object.assign({}, pair));
-    let possibleRemainingPairs = visiblePairs.filter((pair) => pair.display === DisplayValue.PossibleMatch);
 
-    // If there are two pairs that are still possible matches then there are two valid pairs to choose for the
-    // truth booth. e.g. There cannot be only two matches left which share the same man or woman.
-    if (possibleRemainingPairs.length < 2)
+    // Randomly select two couples to be eligible for the truth booth
+    let indexesOfPotentialMatches = visiblePairs.map((pair, index) => { return { pair, index } })
+        .filter((pair) => pair.pair.display === DisplayValue.PossibleMatch)
+        .map((pair) => pair.index);
+
+    // TODO: detect win condition better
+    if (indexesOfPotentialMatches.length < 2)
     {
-        // win condition
+        console.log("win condition");
+        throw "Win!";
     }
+    
+    let [index1, index2] = sampleTwoElements(indexesOfPotentialMatches);
 
     // Set all non-matched pairs to be disabled while the user chooses who to put in
     // the truth booth.
@@ -39,8 +46,7 @@ const getVisiblePairsForTruthBooth = (pairs) => {
         }
     });
 
-    // randomly select two couples to be eligible for the truth booth
-    let [index1, index2] = selectTwoRandomPairs(visiblePairs.length);
+    // Display the truth booth couples
     visiblePairs[index1].display = DisplayValue.PossibleMatch;
     visiblePairs[index2].display = DisplayValue.PossibleMatch;
     return visiblePairs;

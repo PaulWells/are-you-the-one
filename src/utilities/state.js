@@ -1,5 +1,5 @@
 import Grid from '../utilities/grid';
-import { DisplayValue, NumContestantsOfEachGender } from '../constants';
+import { DisplayValue, } from '../constants';
 
 const inSameRowOrColumn = (index1, index2) => {
     return Grid.getRow(index1) === Grid.getRow(index2) || 
